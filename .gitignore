@@ -1,0 +1,6 @@
+cosine_sim.pkl
+df_cleaned.pkl
+preprocess.log
+recommend.log
+tfidf_matrix.pkl
+config.json

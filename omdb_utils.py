@@ -1,8 +1,8 @@
-import request
+import requests
 
 def get_movie_details(title,api_key):
-    url=f"http://www.omdbapi.com/?={title}&plot=full&apikey={api-key}"
-    res = request.get(url).json()
+    url=f"http://www.omdbapi.com/?t={title}&plot=full&apikey={api_key}"
+    res = requests.get(url).json()
     if res.get("Response")=="True":
         result=res.get("Plot","N/A"),res.get("Poster","N/A")
         plot=result[0]

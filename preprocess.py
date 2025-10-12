@@ -12,15 +12,15 @@ logging.basicConfig(
     level=logging.INFO,
     format='[%(asctime)s]%(levelname)s-%(message)s',
     handlers=[
-        logging.Filehandler("preprocess.log",encoding="utf-8"),
+        logging.FileHandler("preprocess.log",encoding="utf-8"),
         logging.StreamHandler()
     ]
 )
 
 logging.info("🚀 Starting preprocessing...")
 nltk.download('punkt')
-nltk.dowmload('punkt_tab')
-nltk.dowmload('stopwords')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
 
 stop_words=set(stopwords.words('english'))
 
