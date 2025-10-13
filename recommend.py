@@ -19,7 +19,7 @@ except Exception as e:
     logging.error("❌ Failed to load required files: %s",str(e))
     raise e
 
-def recommend_movies(movie_name,top_n=5):
+def recommend_movies(movie_name,top_n=20):
     logging.info("🎬 Recommending movies for: '%s'",movie_name)
     idx=df[df['title'].str.lower()==movie_name.lower()].index
     if len(idx)==0:
