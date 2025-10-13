@@ -1,12 +1,18 @@
 import json
 import streamlit as st
+import os
 from omdb_utils import get_movie_details
 from recommend import df, recommend_movies
 from style_loader import load_css, truncate_to_words
 
-# Load configuration
-config = json.load(open("config.json"))
-OMDB_API_KEY = config["OMDB_API_KEY"]
+# Load configuration - use environment variable in production, fallback to config file locally
+try:
+    OMDB_API_KEY = os.environ.get("OMDB_API_KEY")
+    if not OMDB_API_KEY:
+        config = json.load(open("config.json"))
+        OMDB_API_KEY = config["OMDB_API_KEY"]
+except FileNotFoundError:
+    OMDB_API_KEY = os.environ.get("OMDB_API_KEY", "your_api_key_here")
 
 # Page configuration
 st.set_page_config(
