@@ -4,6 +4,11 @@ import os
 from omdb_utils import get_movie_details
 from recommend import df, recommend_movies
 from style_loader import load_css, truncate_to_words
+import os
+
+
+if not os.path.exists('df_cleaned.pkl'):
+    import preprocess
 
 # Load configuration - use environment variable in production, fallback to config file locally
 try:
