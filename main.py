@@ -3,13 +3,10 @@ import streamlit as st
 from omdb_utils import get_movie_details
 from style_loader import load_css, truncate_to_words
 import os
-
-
 import pandas as pd
 import re
 import nltk
 import joblib
-import logging
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -24,7 +21,6 @@ logging.basicConfig(
     ]
 )
 
-logging.info("🚀 Starting preprocessing...")
 nltk.download('punkt')
 nltk.download('punkt_tab')
 nltk.download('stopwords')
@@ -33,9 +29,7 @@ stop_words=set(stopwords.words('english'))
 
 try:
     df=pd.read_csv('movies.csv')
-    logging.info("✅ Dataset loaded successfully. Total rows: %d",len(df))
 except Exception as e:
-    logging.error("❌ Failed to load dataset: %s",str(e))
     raise e
 
 def preprocess_text(text):
@@ -53,49 +47,35 @@ df=df.dropna().reset_index(drop=True)
 
 df["combined"]=df['genres']+' '+df['keywords']+' '+df['overview']
 
-logging.info("🧹 Cleaning text...")
 df['cleaned_text']=df['combined'].apply(preprocess_text)
-logging.info("✅ Text cleaned.")
 
-logging.info("🔠 Vectorizing using TF-IDF...")
 tfidf=TfidfVectorizer(max_features=5000)
 tfidf_matrix=tfidf.fit_transform(df['cleaned_text'])
-logging.info("✅ TF-IDF matrix shape: %s",tfidf_matrix.shape)
 
-logging.info("📐 Calculating cosine similarity...")
 cosine_sim=cosine_similarity(tfidf_matrix,tfidf_matrix)
-logging.info("✅ Cosine similarity matrix generated.")
 
 
 joblib.dump(df,'df_cleaned.pkl')
 joblib.dump(tfidf_matrix,'tfidf_matrix.pkl')
 joblib.dump(cosine_sim,'cosine_sim.pkl')
-logging.info("💾 Data saved to disk.")
-
-logging.info("✅ Preprocessing complete.")
 
 
-logging.info("🔁 Loading data...")
+
 try:
     df=joblib.load('df_cleaned.pkl')
     cosine_sim=joblib.load('cosine_sim.pkl')
-    logging.info("✅ Data loaded successfully.")
 except Exception as e:
-    logging.error("❌ Failed to load required files: %s",str(e))
     raise e
 
 def recommend_movies(movie_name,top_n=20):
-    logging.info("🎬 Recommending movies for: '%s'",movie_name)
     idx=df[df['title'].str.lower()==movie_name.lower()].index
     if len(idx)==0:
-        logging.warning("⚠️ Movie not found in dataset.")
         return None
     idx=idx[0]
 
     sim_score=list(enumerate(cosine_sim[idx]))
     sim_score=sorted(sim_score,key=lambda x:x[1],reverse=True)[1:top_n+1]
     movie_indices=[i[0] for i in sim_score]
-    logging.info("✅ Top %d recommendations ready.",top_n)
 
     result_df=df[['title']].iloc[movie_indices].reset_index(drop=True)
     result_df.index=result_df.index+1
