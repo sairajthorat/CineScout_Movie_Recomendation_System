@@ -12,7 +12,7 @@ A modern, AI-powered movie recommendation web application built with Streamlit t
 
 ## 🚀 Live Demo
 
-[Visit CineScout](your-streamlit-app-url-here)
+[Visit CineScout](https://cinescout-movierecomendations.streamlit.app/)
 
 ## 🛠️ Technologies Used
 
@@ -21,43 +21,6 @@ A modern, AI-powered movie recommendation web application built with Streamlit t
 - **Scikit-learn**: Machine learning for recommendations
 - **OMDB API**: Movie data and posters
 - **CSS**: Custom styling and animations
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/cinescout.git
-cd cinescout
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Set up your OMDB API key:
-   - Get a free API key from [OMDB API](http://www.omdbapi.com/apikey.aspx)
-   - Create a `config.json` file:
-   ```json
-   {
-     "OMDB_API_KEY": "your_api_key_here"
-   }
-   ```
-
-4. Run the application:
-```bash
-streamlit run main.py
-```
-
-## 🌐 Deployment
-
-This app is deployed on Streamlit Community Cloud. To deploy your own version:
-
-1. Fork this repository
-2. Sign up at [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repository
-4. Add your OMDB API key as a secret in the Streamlit dashboard
-5. Deploy!
 
 ## 📁 Project Structure
 
@@ -84,10 +47,6 @@ cinescout/
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
